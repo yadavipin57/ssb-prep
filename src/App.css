@@ -1,0 +1,12 @@
+/* Prevent unintended scrolling */
+/* html, body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  } */
+  
+  /* Debug borders for identifying overflowing elements */
+  /* * {
+    outline: 1px solid red; 
+  }
+   */

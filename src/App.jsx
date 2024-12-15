@@ -1,10 +1,13 @@
 import './App.css'
+import Auth from './components/auth/Auth'
+import Header from './components/staticComp/Header'
 
 function App() {
 
   return (
     <>
-      <h1>SSB PREP</h1>
+      <Header/>
+      <Auth/>
     </>
   )
 }
