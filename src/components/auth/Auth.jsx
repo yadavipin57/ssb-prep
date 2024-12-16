@@ -1,67 +1,16 @@
-import { useRef, useState } from "react";
-import { checkValidData } from "../../utils/validate";
 import Header from "../staticComp/Header";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { auth } from "../../utils/firebase";
-import { useNavigate } from "react-router-dom";
+import useAuthentication from "../../hooks/useAuthentication";
 
 const Auth = () => {
-  const [isLogin, setIsLogin] = useState(true);
-  const [errMessage, setErrMessage] = useState(null);
-
-  const email = useRef(null);
-  const password = useRef(null);
-
-  const navigation = useNavigate();
-
-  const handleAuthDataValidation = () => {
-    const message = checkValidData(email.current.value, password.current.value);
-    setErrMessage(message);
-    if (message) return;
-
-    //Login and Sign Up logic
-
-    if (!isLogin) {
-      // Sign up logic
-      createUserWithEmailAndPassword(
-        auth,
-        email.current.value,
-        password.current.value
-      )
-        .then((userCredential) => {
-          // Signed up
-          const user = userCredential.user;
-          navigation("/homepage");
-          // ...
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // ..
-        });
-    } else {
-      // Login logic
-      signInWithEmailAndPassword(
-        auth,
-        email.current.value,
-        password.current.value
-      )
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          console.log(user)
-          // ...
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setErrMessage(errorCode + " - " + errorMessage)
-        });
-    }
-  };
+  const {
+    email,
+    password,
+    isLogin,
+    setIsLogin,
+    errMessage,
+    setErrMessage,
+    handleAuthDataValidation,
+  } = useAuthentication();
 
   const handleAuthOption = () => {
     setIsLogin((prev) => !prev);
@@ -88,7 +37,7 @@ const Auth = () => {
           />
           <input
             className="mx-[50%] my-4 translate-x-[-50%] px-4 py-2 w-4/5 border border-black placeholder:text-blue-400"
-            type="text"
+            type="password"
             placeholder="Password"
             ref={password}
           />
