@@ -1,24 +1,26 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import userContext from "../utils/contexts/userContext";
 
 const useSignOut = () => {
-  const [username, setUsername] = useState(null);
-
   const navigate = useNavigate();
+
+  const { setSignedInUser } = useContext(userContext);
 
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
+        setSignedInUser(null);
         navigate("/");
-        setUsername(null);
-        console.log("This is null value of username: " + username);
       })
-      .catch((error) => {});
+      .catch((error) => {
+        console.log(error)
+      });
   };
 
-  return { handleSignOut, username };
+  return { handleSignOut };
 };
 
 export default useSignOut;

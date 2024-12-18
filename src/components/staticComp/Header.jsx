@@ -1,32 +1,37 @@
-import useAuthentication from "../../hooks/useAuthentication";
+import { useContext, useEffect } from "react";
 import NavigationBar from "./NavigationBar";
+import userContext from "../../utils/contexts/userContext";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../utils/firebase";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
-  // const {userDetails} = useAuthentication()
 
-  // console.log(userDetails)
+  const navigate = useNavigate();
 
-  const { userDetails } = useAuthentication();
+  const {setSignedInUser, signedInUser} = useContext(userContext)
 
-  if (!userDetails) {
-    return (
-      <div className="p-2 sm:p-4 flex justify-between items-center bg-green-500">
-        <h1 className="sm:text-5xl font-bold text-blue-700">
-          SSB PREP No User
-        </h1>
-        <div>
-          <NavigationBar />
-        </div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const {email} = user;
+        setSignedInUser(email)
+        navigate("/homepage")
+      } else {
+        navigate("/")
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   return (
     <div className="p-2 sm:p-4 flex justify-between items-center bg-green-500">
       <h1 className="sm:text-5xl font-bold text-blue-700">SSB PREP</h1>
-      <div>
-        <NavigationBar />
-      </div>
+      {signedInUser && (
+        <div>
+          <NavigationBar />
+        </div>
+      )}
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import Header from "../staticComp/Header";
 import useAuthentication from "../../hooks/useAuthentication";
+import { Card } from "@mui/material";
 
 const Auth = () => {
   const {
@@ -20,6 +21,8 @@ const Auth = () => {
   return (
     <>
       <Header />
+
+      <Card></Card>
 
       <div className="mt-[20%] sm:mt-[5%] mx-auto sm:w-2/5 text-blue-700">
         <form

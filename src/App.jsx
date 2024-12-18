@@ -1,14 +1,13 @@
-import './App.css'
-import Body from './components/staticComp/Body'
-import { AuthProvider } from './contexts/AuthContext.jsx';
+import "./App.css";
+import Body from "./components/staticComp/Body";
+import { UserProvider } from "./utils/contexts/userContext";
 
 function App() {
-
   return (
-    <AuthProvider>
-      <Body />
-    </AuthProvider>
-  );
+    <UserProvider>
+      <Body/>
+    </UserProvider>
+  )
 }
 
-export default App
+export default App;
