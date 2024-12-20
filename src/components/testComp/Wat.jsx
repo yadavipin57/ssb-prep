@@ -1,6 +1,5 @@
 import Footer from "../staticComp/Footer";
 import Header from "../staticComp/Header";
-import { WAT_WORDS } from "../../utils/constants";
 import { Link } from "react-router-dom";
 
 const Wat = () => {
@@ -12,7 +11,7 @@ const Wat = () => {
         to={`/wattest/${i}`} // Pass the word set index as a route parameter
         key={i}
       >
-        <button className="my-4 px-6 py-3 sm:w-[144px] text-white text-center cursor-pointer bg-[#57a656] rounded-md hover:bg-[#388637]">
+        <button className="my-4 px-6 py-3 w-[196px] sm:w-[196px] text-white text-center cursor-pointer bg-[#57a656] rounded-md hover:bg-[#388637]">
           Word Set {i}
         </button>
       </Link>
@@ -33,14 +32,11 @@ const Wat = () => {
               spontaneous sentence. The word will be displayed for 15 seconds,
               requiring you to form a quick mental association and articulate
               your thoughts under time constraints. This tests your ability to
-              think and express ideas rapidly.
-            </p>
-            <p className="px-4 sm:p-0 text-white">
-              You are given multiple sets of word, click any of them and start
-              prepering for your SSB.
+              think and express ideas rapidly. You are given multiple sets of
+              word, click any of them and start prepering for your SSB.
             </p>
           </div>
-          <div className="flex flex-col items-center flex-wrap justify-evenly sm:justify-between">
+          <div className="flex items-center flex-wrap justify-evenly">
             {watSets}
           </div>
         </div>

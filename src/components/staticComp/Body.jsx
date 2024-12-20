@@ -5,6 +5,8 @@ import { RouterProvider } from "react-router-dom";
 import { MAIN_BG } from "../../utils/constants";
 import Wat from "../testComp/wat";
 import WatTest from "../testComp/WatTest";
+import TatTest from "../testComp/TatTest";
+import Tat from "../testComp/Tat";
 
 function Body() {
   const appRouter = createBrowserRouter([
@@ -13,7 +15,7 @@ function Body() {
       element: <Auth />,
     },
     {
-      path: "/homepage",
+      path: "/homepage",  
       element: <Homepage />,
     },
     {
@@ -21,8 +23,16 @@ function Body() {
       element: <Wat />,
     },
     {
+      path: "/tat",
+      element: <Tat />,
+    },
+    {
       path: "/wattest/:setId",
       element: <WatTest />,
+    },
+    {
+      path: "/tattest/:setId",
+      element: <TatTest />,
     },
   ]);
 

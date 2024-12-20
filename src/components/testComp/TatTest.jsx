@@ -5,12 +5,11 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import CloseIcon from "@mui/icons-material/Close";
 
-const WatTest = () => {
+const TatTest = () => {
   const [play, setPlay] = useState(true);
   const [closeTest, setCloseTest] = useState(false);
 
   const { setId } = useParams();
-  console.log(setId);
 
   const navigate = useNavigate();
 
@@ -27,7 +26,7 @@ const WatTest = () => {
   const handleTestClose = () => {
     setCloseTest(true);
     clearInterval(intervalRef.current);  // Clear interval immediately
-    navigate("/wat");
+    navigate("/tat");
   };
 
 
@@ -83,4 +82,4 @@ const WatTest = () => {
   );
 };
 
-export default WatTest;
+export default TatTest;
