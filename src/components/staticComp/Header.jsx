@@ -16,17 +16,20 @@ const Header = () => {
       if (user) {
         const {email} = user;
         setSignedInUser(email)
-        navigate("/homepage")
+
+        if(location.pathname === "/"){
+          navigate("/homepage")
+        }
       } else {
-        navigate("/")
+        if(location.pathname !== "/" ) navigate("/")
       }
     });
     return () => unsubscribe();
   }, []);
 
   return (
-    <div className="p-2 sm:p-4 flex justify-between items-center bg-green-500">
-      <h1 className="sm:text-5xl font-bold text-blue-700">SSB PREP</h1>
+    <div className="p-2 sm:p-4 flex justify-between items-center bg-[#5197AB] bg-opacity-70">
+      <h1 className="sm:text-5xl font-bold text-[#EFD6AD] shadow-xl">SSB PREP</h1>
       {signedInUser && (
         <div>
           <NavigationBar />
