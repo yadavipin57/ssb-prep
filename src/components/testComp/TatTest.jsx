@@ -1,4 +1,4 @@
-import { WAT_WORDS } from "../../utils/constants";
+import { TAT_PICTURES } from "../../utils/constants";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
@@ -6,56 +6,45 @@ import PauseIcon from "@mui/icons-material/Pause";
 import CloseIcon from "@mui/icons-material/Close";
 
 const TatTest = () => {
-  const [play, setPlay] = useState(true);
-  const [closeTest, setCloseTest] = useState(false);
+  const [tatPicture, setTatPicture] = useState();
+  const [play, setPlay] = useState(false)
 
   const { setId } = useParams();
 
   const navigate = useNavigate();
 
-  const start = (setId - 1) * 60;
-  const end = setId * 60;
-  const words = WAT_WORDS.slice(start, end);
+  const pictures = [];
+  const start = (setId - 1) * 12;
+  const end = setId * 12;
   const intervalRef = useRef(null);
-  //   const beepSound = new Audio("../../assets/beep.mp3")
 
-  const handlePlayButton = () => {
-    setPlay(!play);
-  };
-
-  const handleTestClose = () => {
-    setCloseTest(true);
-    clearInterval(intervalRef.current);  // Clear interval immediately
-    navigate("/tat");
-  };
-
-
+  for (let i = start + 1; i <= end; i++) {
+    pictures.push(`${TAT_PICTURES}${i}.jpg`);
+  } // Populating the pictures array with the path of 11 images
 
   useEffect(() => {
-    const displayFirstWord = () => {
-      document.getElementById("word-display").textContent = words[0];
-      //   beepSound.play();
+    const displayFIrstPicture = () => {
+      setTatPicture(new URL(pictures[0], import.meta.url).href);
     };
 
     const startInterval = () => {
       let index = 1;
       intervalRef.current = setInterval(() => {
-          if (index <= words.length) {
-          document.getElementById("word-display").textContent = words[index++];
-          //   beepSound.play();
+        if (index < pictures.length) {
+          let prevIndex = index;
+          setTatPicture(new URL(pictures[index++], import.meta.url).href);
+          console.log(prevIndex, index, pictures.length);
         } else {
-          document.getElementById("word-display").textContent = `TEST IS OVER`;
+          document.getElementById("picture-display").innerHTML =
+            "<p>TEST IS OVER</P>";
           clearInterval(intervalRef.current);
         }
-      }, 1000);
+      }, 5000);
     };
-    
-    if (!closeTest) {
-        displayFirstWord();
-        setTimeout(startInterval, 0);
-      } else {
-        clearInterval(intervalRef.current);
-      }
+
+      displayFIrstPicture();
+      setTimeout(startInterval, 0);
+      clearInterval(intervalRef.current);
 
     return () => {
       clearInterval(intervalRef.current);
@@ -65,18 +54,24 @@ const TatTest = () => {
   return (
     <div className="w-full h-screen bg-white">
       <div className="absolute top-1 right-1 sm:top-4 sm:right-4 z-50">
-        <button onClick={handlePlayButton}>
+        <button>
           {play ? <PlayArrowIcon /> : <PauseIcon />}
         </button>
-          <button onClick={handleTestClose}>
-            <CloseIcon />
-          </button>
+        <button>
+          <CloseIcon />
+        </button>
       </div>
       <div
-        id="word-display"
+        id="picture-display"
         className="text-4xl text-center w-[96%] sm:w-fit sm:text-7xl absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]"
       >
-        {/* First word displayed immediately */}
+        <img
+          id="picture-tag"
+          className="mx-auto w-full sm:w-[700px]"
+          src={tatPicture}
+          alt="Picture"
+        />
+        {/* First picture displayed immediately */}
       </div>
     </div>
   );

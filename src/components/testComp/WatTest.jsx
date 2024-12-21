@@ -26,11 +26,9 @@ const WatTest = () => {
 
   const handleTestClose = () => {
     setCloseTest(true);
-    clearInterval(intervalRef.current);  // Clear interval immediately
+    clearInterval(intervalRef.current); // Clear interval immediately
     navigate("/wat");
   };
-
-
 
   useEffect(() => {
     const displayFirstWord = () => {
@@ -41,7 +39,7 @@ const WatTest = () => {
     const startInterval = () => {
       let index = 1;
       intervalRef.current = setInterval(() => {
-          if (index <= words.length) {
+        if (index <= words.length) {
           document.getElementById("word-display").textContent = words[index++];
           //   beepSound.play();
         } else {
@@ -50,13 +48,13 @@ const WatTest = () => {
         }
       }, 1000);
     };
-    
+
     if (!closeTest) {
-        displayFirstWord();
-        setTimeout(startInterval, 0);
-      } else {
-        clearInterval(intervalRef.current);
-      }
+      displayFirstWord();
+      setTimeout(startInterval, 0);
+    } else {
+      clearInterval(intervalRef.current);
+    }
 
     return () => {
       clearInterval(intervalRef.current);
@@ -69,9 +67,9 @@ const WatTest = () => {
         <button onClick={handlePlayButton}>
           {play ? <PlayArrowIcon /> : <PauseIcon />}
         </button>
-          <button onClick={handleTestClose}>
-            <CloseIcon />
-          </button>
+        <button onClick={handleTestClose}>
+          <CloseIcon />
+        </button>
       </div>
       <div
         id="word-display"

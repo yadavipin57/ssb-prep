@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Tat = () => {
   const tatSets = [];
 
-  for (let i = 1; i <= 12; i++) {
+  for (let i = 1; i <= 6; i++) {
     tatSets.push(
       <Link
         to={`/tattest/${i}`} // Pass the image set index as a route parameter
